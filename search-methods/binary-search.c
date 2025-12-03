@@ -1,3 +1,4 @@
+//the array must be sorted first
 #include <stdio.h>
 
 int binary_search(int arr[], int size, int objective)
