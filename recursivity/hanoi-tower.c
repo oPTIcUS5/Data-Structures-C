@@ -1,3 +1,8 @@
+/*
+this program gives you the number of necesary movements
+of the hanoi tower
+*/
+
 #include <stdio.h>
 
 int hanoi_tower(int disks)
