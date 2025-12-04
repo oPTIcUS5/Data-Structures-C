@@ -115,20 +115,46 @@ int main()
     queue q;
     initialize_queue(&q);
 
-    enqueue(&q, 10);
-    enqueue(&q, 20);
-    enqueue(&q, 30);
-    enqueue(&q, 40);
-    enqueue(&q, 50);
-    enqueue(&q, 60);
+    int option, element;
 
-    printf("the peeked value is: %d\n", peek(q));
+    do
+    {
+        printf("===Menu===\n");
+        printf("1) enqueue\n");
+        printf("2) dequeue\n");
+        printf("3) display peek\n");
+        printf("4) display queue\n");
+        printf("5) quit\n");
+        printf("option: ");
+        scanf("%d", &option);
 
-    display(q);
-
-    dequeue(&q);
-
-    display(q);
+        switch (option)
+        {
+            case 1:
+            {
+                printf("element to insert: ");
+                scanf("%d", &element);
+                enqueue(&q, element);
+            }
+                break;
+            case 2:
+                dequeue(&q);
+                break;
+            case 3:
+                printf("the peeked elemet is: %d\n", peek(q));
+                break;
+            case 4:
+            {
+                printf("the queue is: \n");
+                display(q);
+            }
+                break;
+            
+            if (option < 1 || option > 5)
+                printf("ERROR: option no recognized\n");
+            
+            }
+    } while (option != 5);
 
     return 0;
 }
