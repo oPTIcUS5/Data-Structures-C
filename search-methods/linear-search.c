@@ -7,7 +7,6 @@ int *create_array(int size);
 void display_array(int arr[], int size);
 void fill_array(int arr[], int size);
 
-
 int *create_array(int size)
 {
     int i;

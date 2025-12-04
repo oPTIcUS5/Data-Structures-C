@@ -3,7 +3,7 @@
 
 #define MAX 5
 
-int array[MAX];
+int array[MAX]; //global array
 
 typedef struct queue
 {
@@ -21,7 +21,7 @@ bool is_empty(queue q)
 {
     bool answer;
 
-    if(q.size == -1)
+    if(q.rear == -1)
         answer = true;
     else
         answer = false;
@@ -43,16 +43,49 @@ int is_full(queue q)
 
 void enqueue(queue *q, int element)
 {
+    //function to enqueue
     if(!is_full(*(q)))
     {
-        array[++q->rear] = element;
-        q->size++;
-        q->front++;
+        if (is_empty(*(q)))
+        {
+            array[++q->front] = element;
+            q->size++;
+            q->rear++;
+        }
+        else
+        {
+            array[++q->rear] = element;
+            q->size++;
+        }
 
         printf("enqueued %d, in position: %d\n", element, q->rear);
     }
     else
+    {
         printf("queue overflow...\n");
+        printf("%d not enqueued\n", element);
+        printf("please, dequeue at least one element\n");
+    }
+}
+
+void dequeue(queue *q)
+{
+    if (!is_empty(*(q)))
+    {
+        printf("dequeued %d\n", array[q->front]);
+        ++q->front;
+        --q->size;
+    }
+    else
+        printf("no queue...\n");
+}
+
+int peek(queue q)
+{
+    if (!is_empty(q))
+        return array[q.front];
+    else
+        return -1;
 }
 
 void display(queue q)
@@ -63,7 +96,7 @@ void display(queue q)
     {
         printf("[");
 
-        for ( i = 0; i <= q.rear; i++)
+        for (i = q.front; i <= q.rear; i++)
         {
             if (i == q.rear)
                 printf("%d", array[i]);
@@ -85,6 +118,15 @@ int main()
     enqueue(&q, 10);
     enqueue(&q, 20);
     enqueue(&q, 30);
+    enqueue(&q, 40);
+    enqueue(&q, 50);
+    enqueue(&q, 60);
+
+    printf("the peeked value is: %d\n", peek(q));
+
+    display(q);
+
+    dequeue(&q);
 
     display(q);
 
