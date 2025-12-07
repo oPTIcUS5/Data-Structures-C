@@ -63,7 +63,7 @@ void push(stack *s, int val)
         printf("inserted: %d in the stack, possition: %d\n", s->top->data, s->size);
     }
 }
-
+ 
 int pop(stack *s)
 {
     int val_poped;
