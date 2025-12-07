@@ -1,6 +1,11 @@
 //the array must be sorted first
 #include <stdio.h>
 
+int binary_search(int arr[], int size, int objective);
+void fill_and_print_array(int array[], int size);
+void bubble_sort(int array[], int size);
+void print_array(int array[], int size);
+
 int binary_search(int arr[], int size, int objective)
 {
     int low = 0;
@@ -24,7 +29,7 @@ int binary_search(int arr[], int size, int objective)
     return -1; //not found
 }
 
-void fill_ad_print_array(int array[], int size)
+void fill_and_print_array(int array[], int size)
 {
     int i;
     int element;
@@ -38,7 +43,6 @@ void fill_ad_print_array(int array[], int size)
     }
 
     i = 0;
-
 
     printf("the array is: ");
     printf("[");
@@ -96,6 +100,23 @@ void print_array(int array[], int size)
 
 int main()
 {
+    int array[10], objective, idx;
+    
+    fill_and_print_array(array, 10);
+    printf("sorting array...\n");
+    bubble_sort(array, 10);
+
+    print_array(array, 10);
+
+    printf("objective: ");
+    scanf("%d", &objective);
+
+    idx = binary_search(array, 10, objective);
+
+    if(idx != -1)
+        printf("founded, position: %d\n", idx);
+    else
+        printf("not founded\n");
 
     return 0;
 }
