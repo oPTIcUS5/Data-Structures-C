@@ -17,7 +17,7 @@ bool is_in_list(node *start, char objective); //proove if an element is in the l
 node *search_in_list(node *start, char objective); //search the node that has the objective
 void create_set_array(node **start, char *str_usr); //create the set
 void add_to_set(node **start, char value);
-void union_set(node **head_set1, node **head_set2); //union of two sets;
+node *union_set(node **head_set1, node **head_set2); //union of two sets;
 
 node *create_node(char value)
 {
@@ -165,10 +165,18 @@ void create_set_array(node **start, char *str_user)
 
 void add_to_set(node **start, char value)
 {
-    //code
+    if (*start == NULL)
+        add_to_list(start, value);
+    else
+    {
+        if(is_in_list(*start, value))
+            printf(RED "rejected '%c' element, in set currently\n" NORMAL, value);
+        else
+            add_to_list(start, value);
+    }
 }
 
-void union_set(node **head_set1, node **head_set2)
+/*void union_set(node **head_set1, node **head_set2)
 {
     node *current = NULL;
 
@@ -187,7 +195,68 @@ void union_set(node **head_set1, node **head_set2)
             current = current->next_node;
         }   
     }
+}*/
+
+node *union_set(node **head_set1, node **head_set2)
+{
+    node *current_node = NULL;
+    node *union_list = *head_set1;
+
+    if (*head_set1 == NULL && *head_set2 == NULL)
+    {
+        printf(RED "ERROR: " NORMAL);
+        printf(CYAN "Both sets are empty\n" NORMAL);
+    }
+    else if (*head_set1 == NULL || *head_set2 == NULL)
+    {
+        printf(YELLOW "One of the sets are empty\n" NORMAL);
+    }
+    else
+    {
+        current_node = *head_set2;
+        node *union_list = *head_set1;
+
+        while (current_node->next_node != NULL)
+        {
+            if (!is_in_list(union_list, current_node->data))
+                add_to_list(&union_list, current_node->data);
+
+            current_node = current_node->next_node;
+        }
+    }
+
+    return union_list;
 }
+
+/*node *intersection_set(node **head_set1, node **head_set2)
+{
+    node *intersection_list = NULL;
+    node *current_aux = NULL;
+    node *aux = NULL;
+
+    if (*head_set1 == NULL && head_set2 == NULL)
+        printf(RED "<<ERRORO: Both set's are empty\n" NORMAL);
+
+    else if (*head_set1 == NULL || *head_set2 == NULL)
+        printf(YELLOW "One of the set's is void\n" NORMAL);
+
+    else
+    {
+        current_aux = *head_set1;
+
+        while (current_aux != NULL)
+        {
+            aux = *head_set2;
+            while (aux != NULL)
+            {
+                if (current_aux->data == aux->data)
+                    add_to_list(&intersection_list, aux->data);
+                
+                aux = aux->next_node;
+            }
+        }
+    }
+}*/
 
 int main()
 {
@@ -202,8 +271,28 @@ int main()
     add_to_list(&set2, 'd');
     add_to_list(&set2, 'd');
 
-    union_set(&set1, &set2);
+    printf("\n");
+    printf("list 1: ");
     display(set1);
+    printf("list 2: ");
+    display(set2);
+    printf("\n");
+
+    printf("<<<making the union>>>\n");
+    node *union_list = union_set(&set1, &set2);
+    printf("the union is: \n");
+    display(union_list);
+
+    /*printf(WHITE "\nSET PART\n" NORMAL);
+    printf("list\n");
+
+    add_to_set(&list, 's');
+    display(list);
+
+    printf("inserting same element\n");
+
+    add_to_set(&list, 's');
+    display(list);*/
 
     return 0;
 }
