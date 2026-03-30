@@ -3,7 +3,7 @@
 
 void merge(int array[], int left, int mid, int right);
 void merge_sort(int array[], int left, int right);
-void display_array(int* array);
+void display_array(int array[], int size);
 
 
 void merge(int array[], int left, int mid, int right)
@@ -28,7 +28,7 @@ void merge(int array[], int left, int mid, int right)
 
     i = 0;
     j = 0;
-    k = mid;
+    k = left;
 
     while (i < n1 && j < n2)
     {
@@ -67,7 +67,7 @@ void merge(int array[], int left, int mid, int right)
 
 void merge_sort(int array[], int left, int right)
 {
-    int mid = NULL;
+    int mid;
 
     if (left < right)
     {
@@ -82,15 +82,29 @@ void merge_sort(int array[], int left, int right)
 }
 
 
-void display_array(int* array)
+void display_array(int array[], int size)
 {
-    int i, size = NULL;
+    int i, size;
 
-    size = sizeof(array)/sizeof(array[0]);
-
-    for ( i = 0; i < size; i++)
+    printf("[");
+    for (i = 0; i < size; i++)
     {
-        /* code */
+        if (i == size - 1)
+            printf("%d", array[i]);
+        else
+            printf("%d, ", array[i]);
     }
+    printf("]\n");
     
+}
+
+int main(void)
+{
+    int array[] = {6, 23, -1, 4, 100};
+    display_array(array, 5);
+
+    merge_sort(array, 0, 5 - 1);
+    printf("sorted array: \n");
+    display_array(array, 5);
+
 }
