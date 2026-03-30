@@ -4,6 +4,7 @@
 void merge(int array[], int left, int mid, int right);
 void merge_sort(int array[], int left, int right);
 void display_array(int array[], int size);
+void fill_array(int array[], int size);
 
 
 void merge(int array[], int left, int mid, int right)
@@ -84,7 +85,7 @@ void merge_sort(int array[], int left, int right)
 
 void display_array(int array[], int size)
 {
-    int i, size;
+    int i;
 
     printf("[");
     for (i = 0; i < size; i++)
@@ -98,13 +99,41 @@ void display_array(int array[], int size)
     
 }
 
+void fill_array(int array[], int size)
+{
+    int i;
+
+    for ( i = 0; i < size; i++)
+    {
+        printf("Element %d: ", i);
+        scanf("%d", &array[i]);
+    }
+    
+}
+
 int main(void)
 {
-    int array[] = {6, 23, -1, 4, 100};
-    display_array(array, 5);
+    int size = 0;
 
-    merge_sort(array, 0, 5 - 1);
-    printf("sorted array: \n");
-    display_array(array, 5);
+    do
+    {
+        printf("input the size of the array: ");
+        scanf("%d", &size);
 
+        if (size < 0)
+            printf("Must be > 0\n");
+        
+    } while (size < 0);
+
+    int array[size];
+
+    fill_array(array, size);
+    display_array(array, size);
+
+    merge_sort(array, 0, size - 1);
+    printf("array sorted: ");
+    display_array(array, size);
+    
+
+    printf("size %d\n", size);
 }
