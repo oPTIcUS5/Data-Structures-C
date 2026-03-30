@@ -1,6 +1,9 @@
 #include <stdio.h>
 
 void swap(int* ptr_a, int* ptr_b);
+int partition(int arr[], int low, int high);
+void quick_sort(int arr[], int low, int high);
+void display_array(int arr[], int size);
 
 
 void swap(int* ptr_a, int* ptr_b)
@@ -35,5 +38,32 @@ int partition(int *arr, int low, int high)
 }
 
 
+void quick_sort(int arr[], int low, int high)
+{
+    int piv;
 
+    piv = partition(arr, low, high);
+
+    if (low < high)
+    {
+        quick_sort(arr, low, piv - 1);
+        quick_sort(arr, piv + 1, high);
+    }
+}
+
+void display_array(int array[], int size)
+{
+    int i;
+
+    printf("[");
+    for (i = 0; i < size; i++)
+    {
+        if (i == size - 1)
+            printf("%d", array[i]);
+        else
+            printf("%d, ", array[i]);
+    }
+    printf("]\n");
+    
+}
 
