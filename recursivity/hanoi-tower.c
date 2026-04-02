@@ -1,30 +1,35 @@
-/*
-this program gives you the number of necesary movements
-of the hanoi tower
-*/
-
 #include <stdio.h>
 
-int hanoi_tower(int disks)
+int hanoi_tower(int n, char origin, char auxiliar, char destiny)
 {
-    if (disks == 1)
+    if (n == 1)
     {
-        return 1;
+        printf("Move disk %c to %c\n", origin, destiny);
     }
-    return 2 * hanoi_tower(disks - 1) + 1;
+    else
+    {
+        hanoi_tower(n - 1, origin, destiny, auxiliar);
+        printf("move disk %c to %c\n", origin, destiny);
+        hanoi_tower(n - 1, auxiliar, origin, destiny);
+    }
 }
 
 int main()
 {
 
-    int disks, movements;
+    int disks;
 
-    printf("number of disks: ");
-    scanf("%d", &disks);
+    do
+    {
+        printf("number of disks: ");
+        scanf("%d", &disks);
 
-    movements = hanoi_tower(disks);
-
-    printf("the total of necesary movements is: %d\n", movements);
+        if (disks < 1)
+            printf("Error: the n. of disks must be > 1");
+        
+    } while (disks < 1);
+    
+    hanoi_tower(disks, 'A', 'B', 'C');
 
     return 0;
 }
