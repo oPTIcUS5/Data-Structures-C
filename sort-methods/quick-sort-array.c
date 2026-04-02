@@ -3,6 +3,7 @@
 void swap(int* ptr_a, int* ptr_b);
 int partition(int arr[], int low, int high);
 void quick_sort(int arr[], int low, int high);
+void fill_array(int * arr, int size);
 void display_array(int arr[], int size);
 
 
@@ -67,3 +68,45 @@ void display_array(int array[], int size)
     
 }
 
+void fill_array(int * arr, int size)
+{
+    int i;
+
+    for ( i = 0; i < size; i++)
+    {
+        printf("insert the element %d: ", i);
+        scanf("%d", &arr[i]);
+    }
+    
+    printf("end of the function fill array\n");
+}
+
+
+int main(void)
+{
+    int size;
+
+    do
+    {
+        printf("Insert the size of the array: ");
+        scanf("%d", &size);
+
+        if (size < 0)
+        {
+            printf("ERROR: invalid size\n");
+        }
+        
+    } while (size < 0);
+
+    int array[size];
+
+    fill_array(array, size);
+    
+    printf("the array is: ");
+    display_array(array, size);
+
+    quick_sort(array, 0, size - 1);
+
+    printf("the sorted array is: ");
+    display_array(array, size);
+}
