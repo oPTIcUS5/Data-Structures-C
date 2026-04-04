@@ -57,3 +57,24 @@ void siftDown(MaxHeap *Heap, int i)
     }
 }
 
+
+void insert(MaxHeap *Heap, int value)
+{
+    if (Heap->actual_size == Heap->capacity)
+    {
+        printf("Error: Heap overflow\n");
+    }
+    else
+    {
+        int i = Heap->actual_size;
+        Heap->array[i] = value;
+        Heap->actual_size++;
+
+        while (i != 0 && Heap->array[getLeftChild(i)] < Heap->array[i])
+        {
+            swap(&Heap->array[i], &Heap->array[getLeftChild(i)]);
+            i = getFather(i);
+        }
+    }
+}
+
