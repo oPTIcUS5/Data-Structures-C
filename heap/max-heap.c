@@ -16,7 +16,7 @@ void siftDown(MaxHeap *Heap, int i);
 int deleteRoot(MaxHeap *Heap);
 void insert(MaxHeap *Heap, int value);
 void swap(int *a, int *b);
-void displayHeap(MaxHeap Heap);
+void displayHeap(MaxHeap *Heap);
 
 MaxHeap *createMaxHeap(int capacity)
 {
@@ -33,9 +33,24 @@ void swap(int *a, int *b)
 {
     int temp;
 
-    temp = *b;
+    temp = *a;
     *a = *b;
     *b = temp;
+}
+
+int getFather(int i)
+{
+    return (i - 1) / 2;
+}
+
+int getLeftChild(int i)
+{
+    return (2*i) + 1;
+}
+
+int getRightchild(int i)
+{
+    return (2*i) + 2;
 }
 
 void siftDown(MaxHeap *Heap, int i)
@@ -53,7 +68,7 @@ void siftDown(MaxHeap *Heap, int i)
     if (big != i)
     {
         swap(&Heap->array[i], &Heap->array[big]);
-        siftDown(Heap, i);
+        siftDown(Heap, big);
     }
 }
 
@@ -70,9 +85,9 @@ void insert(MaxHeap *Heap, int value)
         Heap->array[i] = value;
         Heap->actual_size++;
 
-        while (i != 0 && Heap->array[getLeftChild(i)] < Heap->array[i])
+        while (i != 0 && Heap->array[getFather(i)] < Heap->array[i])
         {
-            swap(&Heap->array[i], &Heap->array[getLeftChild(i)]);
+            swap(&Heap->array[i], &Heap->array[getFather(i)]);
             i = getFather(i);
         }
     }
@@ -104,17 +119,88 @@ int deleteRoot(MaxHeap *Heap)
     return root;
 }
 
-void displayHeap(MaxHeap Heap)
+void displayHeap(MaxHeap *Heap)
 {
     int i;
 
     printf("[");
-    for ( i = 0; i < Heap.actual_size; i++)
+    for ( i = 0; i < Heap->actual_size; i++)
     {
-        if(i == Heap.actual_size - 1)
-            printf("%d", Heap.array[i]);
+        if(i == Heap->actual_size - 1)
+            printf("%d", Heap->array[i]);
         else
-            printf("%d, ", Heap.array[i]);
+            printf("%d, ", Heap->array[i]);
     }
     printf("]\n");
+}
+
+
+int main(void)
+{
+    int choice, HeapSize, element, root;
+    MaxHeap *Heap = NULL;
+
+    do
+    {
+        printf("\n===Menu===\n");
+        printf("1) Create MaxHeap\n");
+        printf("2) Insert elements\n");
+        printf("3) Delete root\n");
+        printf("4) Display MaxHeap (array)\n");
+        printf("5: Exit\n");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+            {
+                printf("input the size of the MaxHeap: ");
+                scanf("%d", &HeapSize);
+
+                Heap = createMaxHeap(HeapSize);
+                printf("MaxHeap Created\n");
+            }
+                break;
+            
+            case 2:
+            {
+                if (Heap == NULL)
+                    printf("First create the heap...\n");
+                else
+                {
+                    printf("Element: ");
+                    scanf("%d", &element);
+
+                    insert(Heap, element);
+                }
+            }
+                break;
+
+            case 3:
+            {
+                if (Heap == NULL)
+                    printf("First create the heap...\n");
+                else
+                {
+                    root = deleteRoot(Heap);
+                    printf("Root: %d\n", root);
+                }
+            }
+            break;
+
+            case 4:
+            {
+                if (Heap == NULL)
+                    printf("First create the heap...\n");
+                else
+                    displayHeap(Heap);
+            }
+            break;
+        }
+    } while (choice <= 4);
+
+    free(Heap->array);
+    free(Heap);
+
+    printf("MaxHeap deleted...\n");
 }
