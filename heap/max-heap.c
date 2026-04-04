@@ -38,5 +38,22 @@ void swap(int *a, int *b)
     *b = temp;
 }
 
+void siftDown(MaxHeap *Heap, int i)
+{
+    int big = i;
+    int left = getLeftChild(i);
+    int right = getRightchild(i);
 
+    if (left < Heap->actual_size && Heap->array[left] > Heap->array[big])
+        big = left;
+
+    if (right < Heap->actual_size && Heap->array[right] > Heap->array[big])
+        big = right;
+
+    if (big != i)
+    {
+        swap(&Heap->array[i], &Heap->array[big]);
+        siftDown(Heap, i);
+    }
+}
 
