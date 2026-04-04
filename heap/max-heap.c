@@ -78,3 +78,28 @@ void insert(MaxHeap *Heap, int value)
     }
 }
 
+
+int deleteRoot(MaxHeap *Heap)
+{
+    int root;
+
+    if (Heap->actual_size == 0)
+    {
+        return -1;
+    }
+    
+    if (Heap->actual_size == 1)
+    {
+        Heap->actual_size--;
+        return Heap->array[0];
+    }
+
+    root = Heap->array[0]; //root to return (max)
+
+    Heap->array[0] = Heap->array[Heap->actual_size - 1];
+    Heap->actual_size--;
+
+    siftDown(Heap, 0);
+    
+    return root;
+}
