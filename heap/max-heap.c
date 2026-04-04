@@ -15,8 +15,8 @@ int getRightchild(int i);
 void siftDown(MaxHeap *Heap, int i);
 int deleteRoot(MaxHeap *Heap);
 void insert(MaxHeap *Heap, int value);
-
 void swap(int *a, int *b);
+void displayHeap(MaxHeap Heap);
 
 MaxHeap *createMaxHeap(int capacity)
 {
@@ -102,4 +102,19 @@ int deleteRoot(MaxHeap *Heap)
     siftDown(Heap, 0);
     
     return root;
+}
+
+void displayHeap(MaxHeap Heap)
+{
+    int i;
+
+    printf("[");
+    for ( i = 0; i < Heap.actual_size; i++)
+    {
+        if(i == Heap.actual_size - 1)
+            printf("%d", Heap.array[i]);
+        else
+            printf("%d, ", Heap.array[i]);
+    }
+    printf("]\n");
 }
