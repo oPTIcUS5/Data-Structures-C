@@ -17,7 +17,8 @@ typedef struct Graph
 Graph *createGraph(int numVertices);
 Node *createNode(int destiny);
 
-/* Insert function */
+/* add edge function */
+void addEdge(Graph *grap, int origin, int destiny);
 
 /* Display function*/
 
@@ -47,4 +48,18 @@ Node *createNode(int destiny) {
     newNode->nextNode = NULL;
 
     return newNode;
+}
+
+// addEdge function
+void addEdge(Graph *grap, int origin, int destiny) {
+
+    Node *newNode = createNode(destiny);
+
+    newNode->nextNode = grap->list[origin];
+    grap->list[origin] = newNode;
+
+    newNode = createNode(origin);
+
+    newNode->nextNode = grap->list[destiny];
+    grap->list[destiny] = newNode;
 }
