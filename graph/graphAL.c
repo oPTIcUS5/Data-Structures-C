@@ -23,6 +23,7 @@ Node *createNode(int destiny);
 
 /* Delete functions */
 
+// create a graph
 Graph *createGraph(int numVertices) {
 
     Graph *graph = (Graph*)malloc(sizeof(Graph));
@@ -35,4 +36,15 @@ Graph *createGraph(int numVertices) {
         graph->list[i] = NULL;
 
     return graph;
+}
+
+// create a Node
+Node *createNode(int destiny) {
+
+    Node *newNode = (Node*)malloc(sizeof(Node));
+
+    newNode->destiny = destiny;
+    newNode->nextNode = NULL;
+
+    return newNode;
 }
