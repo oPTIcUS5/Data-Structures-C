@@ -21,6 +21,7 @@ Node *createNode(int destiny);
 void addEdge(Graph *grap, int origin, int destiny);
 
 /* Display function*/
+void display(Graph *graph);
 
 /* Delete functions */
 
@@ -62,4 +63,22 @@ void addEdge(Graph *graph, int origin, int destiny) {
 
     newNode->nextNode = graph->list[destiny];
     graph->list[destiny] = newNode;
+}
+
+// display fucntion
+void display(Graph *graph) {
+
+    for (int i = 0; i < graph->vertices; i++) {
+
+        printf("[%d]: --> ", i);
+        
+        Node *auxiliar = graph->list[i];
+
+        while (auxiliar != NULL) {
+            
+            printf("%d --> ", auxiliar->destiny);
+            auxiliar = auxiliar->nextNode;
+        }
+        printf("NULL\n");
+    }
 }
