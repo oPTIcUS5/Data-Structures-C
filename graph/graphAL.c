@@ -51,15 +51,15 @@ Node *createNode(int destiny) {
 }
 
 // addEdge function
-void addEdge(Graph *grap, int origin, int destiny) {
+void addEdge(Graph *graph, int origin, int destiny) {
 
     Node *newNode = createNode(destiny);
 
-    newNode->nextNode = grap->list[origin];
-    grap->list[origin] = newNode;
+    newNode->nextNode = graph->list[origin];
+    graph->list[origin] = newNode;
 
     newNode = createNode(origin);
 
-    newNode->nextNode = grap->list[destiny];
-    grap->list[destiny] = newNode;
+    newNode->nextNode = graph->list[destiny];
+    graph->list[destiny] = newNode;
 }
